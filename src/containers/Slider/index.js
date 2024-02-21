@@ -20,11 +20,12 @@ function Slider() {
 
   
 
-  useEffect(() => {
-    const intervalId = setInterval(nextCard, 5000);
-
-    return () => clearInterval(intervalId);
-  });
+  useEffect(
+    () => {
+      const intervalId = setInterval(nextCard, 5000);
+      return () => clearInterval(intervalId);
+    },[index, byDateDesc]
+  );
 
   return (
     <div className="SlideCardList">
@@ -45,18 +46,22 @@ function Slider() {
               </div>
             </div>
           </div>
+
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateDesc.map((events, radioIndex) => (
                 <input
+                key={events.title}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}
+                  checked={index === radioIndex}
+                  readOnly
                 />
               ))}
             </div>
           </div>
         </>
+
       ))}
     </div>
   );
