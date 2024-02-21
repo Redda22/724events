@@ -122,9 +122,11 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        {last && ( // Vérivication que last est positif
+        {last && ( // Vérification que last est positif
           <EventCard
+            data-testid="last-event-card"
             imageSrc={last?.cover}
+            imageAlt={last?.description}
             title={last?.title}
             date={new Date(last?.date)}
             small
