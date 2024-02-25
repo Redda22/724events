@@ -124,13 +124,12 @@ const Page = () => {
         <h3>Notre derniére prestation</h3>
         {last && ( // Vérification que last est positif
           <EventCard
-            data-testid="last-event-card"
             imageSrc={last?.cover}
             imageAlt={last?.description}
             title={last?.title}
             date={new Date(last?.date)}
-            small
             label={last?.type}
+            small
           />
         )}
 

@@ -6,25 +6,23 @@ import "./style.scss";
 
 function Slider() {
   const { data } = useData();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0); // Variable d'état de l'index des slides.
 
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
+  // fonction pour passer à la slide suivante.
   const nextCard = () => {
-    setIndex((prevIndex) =>
-      prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0
+    setIndex((nextIndex) => // Appel de modification avec setIndex et nextIndex en parametre.
+      nextIndex < byDateDesc.length - 1 ? nextIndex + 1 : 0 // nextIndex s'incrémente tant qu'elle n'est pas supérieur à la quantité de slides.
     );
   };
 
-  
-
-  useEffect(
-    () => {
-      const intervalId = setInterval(nextCard, 5000);
-      return () => clearInterval(intervalId);
-    },[index, byDateDesc]
+  useEffect(() => {
+    const interval = setInterval(nextCard, 5000); // Éxecution de nextCard à des intervals fixe.
+    return () => clearInterval(interval); // Appel de l'éxecution et fermeture de l'interval juste après.
+  }, [index, byDateDesc]
   );
 
   return (
@@ -36,7 +34,6 @@ function Slider() {
               }`}
           >
             <img src={event.cover} alt="forum" />
-
             <div className="SlideCard__descriptionContainer">
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
@@ -48,18 +45,19 @@ function Slider() {
 
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((item, radioIndex) => (
+              {byDateDesc.map((radio, radioIdx) => (
                 <input
-                  key={item.title}
+                  key={radio.title}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIndex}
-                  readOnly
+                  checked={index === radioIdx} // index et non idx
+                  readOnly // empeche la modification de contenu
                 />
               ))}
             </div>
           </div>
         </div>
+
 
       ))}
     </div>
